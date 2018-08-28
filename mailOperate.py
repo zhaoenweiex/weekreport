@@ -120,7 +120,10 @@ def downloadReports(emailaddress,password,pop3_server,teamNumber,upTimeBounding,
     # list()返回所有邮件的编号:
     resp, mails, octets = server.list()   
     # 获取最新10封邮件, 注意索引号从1开始:
-    length = teamNumber*2
+    if teamNumber<1:
+        length =  len(mails)
+    else:
+        length = teamNumber*2    
     for i in range(length):
         print('---------- 正在处理'+str(i)+'/'+str(length)+' ----------')
         resp, lines, octets = server.retr(len(mails) - i)
@@ -158,6 +161,11 @@ def downloadReports(emailaddress,password,pop3_server,teamNumber,upTimeBounding,
     return 
 
 def sendResults(fileNameArray,fromaddr,psw,serverAddress):
+    timeStr= time.strftime("%Y%m%d", time.localtime())
+    topic='软件二组'+timeStr+'周报汇总'
+    sendResults(fileNameArray,fromaddr,fromaddr,psw,serverAddress,topic)
+
+def sendResults(fileNameArray,fromaddr,toaddr,psw,serverAddress,topic):
     server = smtplib.SMTP(serverAddress)
     server.login(fromaddr,psw)
     m = MIMEMultipart()
@@ -166,13 +174,11 @@ def sendResults(fileNameArray,fromaddr,psw,serverAddress):
         fileApart.set_payload(open(file,'rb').read())
         fileApart.add_header('Content-Disposition', 'attachment', filename=Header(file, 'utf-8').encode())
         encode_base64(fileApart)
-        m.attach(fileApart)
-    timeStr= time.strftime("%Y%m%d", time.localtime())
-    m['Subject'] = '软件二组'+timeStr+'周报汇总'
-    server.sendmail(fromaddr, fromaddr, m.as_string())
+        m.attach(fileApart)   
+    m['Subject'] = topic
+    server.sendmail(fromaddr, toaddr, m.as_string())
     print('send success')
     server.quit()
-
 
 if __name__ == '__main__':
     # 输入邮件地址, 口令和POP3服务器地址:

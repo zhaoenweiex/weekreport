@@ -30,3 +30,5 @@ def renameFile(o,t):
 def getRelativeName(filename):
     (filepath,tempFileName) = os.path.split(filename)
     return tempFileName
+def getModifyTime(name):
+    return os.path.getmtime(name)
