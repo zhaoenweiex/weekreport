@@ -7,6 +7,7 @@ import time
 
 
 def mergeAllinfo2HistoryXlsx(resultDir, orgName, weekDict, historyFilePath):
+    timeStr = time.strftime("%Y%m%d", time.localtime())
     workbook = xlrd.open_workbook(historyFilePath)
     sheets = workbook.sheets()
     array = []
@@ -18,13 +19,17 @@ def mergeAllinfo2HistoryXlsx(resultDir, orgName, weekDict, historyFilePath):
             row = table.row_values(rownum)
             if row:
                 row_list.append(row)
-        row_list.append(weekDict.get(table.name))
-        array.append({name:table.name,datas: row_list})
-        weekDict.pop(table.name)
-    for member_name,info in weekDict:
-        array.append({name:member_name,datas: info})
-    mergeName = resultDir+'/'+orgName+timeStr+'all.xls'
+        if not 'Sheet1' in table.name:
+            array.append({'name':table.name,'datas': row_list})
+        if weekDict.__contains__(table.name):
+            row_list.append(weekDict.get(table.name))
+            weekDict.pop(table.name)
+    for member_name in weekDict:
+        info=weekDict.get(member_name)
+        array.append({'name':member_name,'datas': [info]})
+    mergeName = resultDir+'/'+orgName+timeStr+'_all.xls'
     write_to_excel(mergeName, array)
+    return mergeName
 
 
 def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
@@ -51,7 +56,7 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
         newRow.append(value)
     row_list.append(newRow)
     mergeName = resultDir+'/'+orgName+timeStr+'~汇总.xls'
-    write_to_excel(mergeName,[{name:'test',datas: row_list}])
+    write_to_excel(mergeName,[{'name':'test','datas': row_list}])
 
     return mergeName
 
@@ -60,8 +65,8 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
 def write_to_excel(filename, arrayInfo):
     wb = xlwt.Workbook()
     for sheetData in arrayInfo:
-        sheet = wb.add_sheet(sheetData.name)
-        datas=sheetData.datas
+        sheet = wb.add_sheet(sheetData.get('name'))
+        datas=sheetData.get('datas')
         for row in range(len(datas)):
             for col in range(len(datas[row])):
                 sheet.write(row, col, datas[row][col])

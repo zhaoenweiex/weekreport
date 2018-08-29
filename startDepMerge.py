@@ -24,7 +24,7 @@ if __name__ == '__main__':
     password = '860124Ww'
     pop3_server = 'pop.163.com'
     smtp_server='smtp.163.com'
-    teamNumber=0
+    teamNumber=5
     orgName="系统总体室"
     timeStampe=str(datetime.datetime.now().month)+str(datetime.datetime.now().day)
     tempReportDirName='reports_'+timeStampe  
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     createTempDir(tempReportDirName)
     createTempDir(tempResultDirName)
     # 下载科室内各个组的周报
-    downloadReports(emailaddress,password,pop3_server,teamNumber,7,-7,'.doc',tempReportDirName)
+    downloadReports(emailaddress,password,pop3_server,teamNumber,7,-7,'~汇总.doc',tempReportDirName)
 
     histroryFileName, tempHistorytDirName = generateHistoryReport()
     # 合并到excel
@@ -42,3 +42,4 @@ if __name__ == '__main__':
     # clearTempDirs(tempReportDirName)
     # clearTempDirs(tempHistorytDirName)
     # clearTempDirs(tempResultDirName)
+    
