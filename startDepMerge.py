@@ -4,7 +4,7 @@ import datetime
 from mailOperate import downloadReports,sendResults
 from mergeWordReport import mergeWordReport
 from mergeExcelReport import mergeExcelReport,mergeOrg2DepartmentReport
-from fileUtil import scanDir,clearTempDirs,clearFiles,createTempDir,renameFile
+from fileUtil import scanDir,clearTempDirs,clearFiles,createTempDir,renameFile,loadConfig
 
 def generateHistoryReport():
     tempHistorytDirName='org_history_'+str(datetime.datetime.now().month)+str(datetime.datetime.now().day)    
@@ -17,15 +17,18 @@ def generateHistoryReport():
     return histroryFileName, tempHistorytDirName
 
 if __name__ == '__main__':
+    
+    # 將配置合并到外部的配置文件中,config.json
+    emailaddress,password,pop3_server,smtp_server,teamNumber,orgName,toAddress=loadConfig()
     # 输入邮件地址, 口令和POP3服务器地址:
-    emailaddress = '18622939753@163.com'
-    toAddress = 'zhaoenweiex@hotmail.com'
-    # 注意使用开通POP，SMTP等的授权码
-    password = '860124Ww'
-    pop3_server = 'pop.163.com'
-    smtp_server='smtp.163.com'
-    teamNumber=5
-    orgName="系统总体室"
+    # emailaddress = '18622939753@163.com'
+    # toAddress = 'zhaoenweiex@hotmail.com'
+    # # 注意使用开通POP，SMTP等的授权码
+    # password = '860124Ww'
+    # pop3_server = 'pop.163.com'
+    # smtp_server='smtp.163.com'
+    # teamNumber=5
+    # orgName="系统总体室"
     timeStampe=str(datetime.datetime.now().month)+str(datetime.datetime.now().day)
     tempReportDirName='reports_'+timeStampe  
     tempResultDirName='result_'+timeStampe    
@@ -39,7 +42,7 @@ if __name__ == '__main__':
     mergeOrg2DepartmentReport(tempResultDirName,tempReportDirName,orgName,histroryFileName)
     # 将成果作为邮件附件发送到管理邮箱中
     sendResults([histroryFileName],emailaddress,toAddress,password,smtp_server,'部门级个人周报历史记录')
-    # clearTempDirs(tempReportDirName)
-    # clearTempDirs(tempHistorytDirName)
-    # clearTempDirs(tempResultDirName)
+    clearTempDirs(tempReportDirName)
+    clearTempDirs(tempHistorytDirName)
+    clearTempDirs(tempResultDirName)
     

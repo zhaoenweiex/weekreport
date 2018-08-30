@@ -1,0 +1,9 @@
+{
+    "emailaddress" : "18622939753@163.com",
+    "toAddress" :"zhaoenweiex@hotmail.com",
+    "password" : "860124Ww",
+    "pop3_server" : "pop.163.com",
+    "smtp_server":"smtp.163.com",
+    "teamNumber":5,
+    "orgName":"系统总体室"
+}
