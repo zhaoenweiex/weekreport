@@ -4,7 +4,7 @@ import datetime
 from mailOperate import downloadReports,sendResults
 from mergeWordReport import mergeWordReport
 from mergeExcelReport import mergeExcelReport
-from fileUtil import scanDir,clearTempDirs,clearFiles,createTempDir,renameFile
+from fileUtil import scanDir,clearTempDirs,clearFiles,createTempDir,renameFile,loadConfig
 
 def generateHistoryReport():
     tempHistorytDirName='history_'+str(datetime.datetime.now().month)+str(datetime.datetime.now().day)    

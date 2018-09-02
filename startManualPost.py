@@ -4,7 +4,7 @@ import datetime
 from mailOperate import downloadReports,sendResults
 from mergeWordReport import mergeWordReport
 from mergeExcelReport import mergeExcelReport
-from fileUtil import scanDir,clearTempDirs,clearFiles,createTempDir,renameFile,getRelativeName
+from fileUtil import scanDir,clearTempDirs,clearFiles,createTempDir,renameFile,getRelativeName,loadConfig
 
 def generateHistoryReport():
     tempHistorytDirName='history_'+str(datetime.datetime.now().month)+str(datetime.datetime.now().day)    
@@ -41,6 +41,6 @@ if __name__ == '__main__':
     # 扫描成果文件夹
     resultList=scanDir(tempResultDirName)
     # 将成果作为邮件附件发送到管理邮箱中
-    sendResults(getRelativeNameList(tempResultDirName,resultList),emailaddress,password,smtp_server)    
+    sendResults(getRelativeNameList(tempResultDirName,resultList),emailaddress,emailaddress,password,smtp_server,"软件二组周报")    
     clearTempDirs(tempHistorytDirName)
     clearTempDirs(tempResultDirName)
