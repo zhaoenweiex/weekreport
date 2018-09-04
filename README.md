@@ -27,9 +27,37 @@
 
 #准备工作
 
+##邮箱准备
+
 团队管理人员申请一个专门的团队邮箱(163需要并设定专门的客户端密码)。
+
+##模板准备
+
 团队成员下载周报模板，在template文件夹下，填写自己工作内容，再将每个人的周报作为附件发送到指定的团队邮箱中。
-管理人员需要准备具python环境的PC。
+
+##Python环境准备
+
+1.安装python3(https://www.python.org/downloads/windows/)
+2.安装pip(下载https://bootstrap.pypa.io/get-pip.py，在下载目录下启动命令行执行python get-pip.py)
+3.执行pip install docx
+4.执行pip install xlrd
+5.执行pip install xlwt
+6.执行pip install poplib
+7.执行pip install stmplib
+8.执行pip install python-docx
+
+##调整配置
+程序的配置都是在Config.json中
+其中
+
+emailaddress，团队邮箱地址
+toAddress，成果发送的邮箱地址
+password，邮箱的密码
+pop3_serve，团队邮箱的pop3地址
+smtp_server，团队邮箱的stmp地址
+teamNumber，团队成员数量
+orgName，团队名称
+根据各自情况进行设定
 
 #使用方法
 
