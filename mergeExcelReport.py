@@ -23,7 +23,6 @@ def extractDoneInfo(filePath):
     return doneDict
 
 def extractAllInfo(filePath):
-    # FIXME:@ZEW需要解决时间不正确的问题
     modifyTime=getModifyTime(filePath)
     timeStr=time.strftime("%Y%m%d",time.localtime(modifyTime)) 
     doc = docx.Document(filePath)

@@ -56,7 +56,8 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
         newRow.append(value)
     row_list.append(newRow)
     mergeName = resultDir+'/'+orgName+timeStr+'~汇总.xls'
-    write_to_excel(mergeName,[{'name':'test','datas': row_list}])
+    # FIXME:第二页信息丢失
+    write_to_excel(mergeName,[{'name':'汇总','datas': row_list}])
 
     return mergeName
 

@@ -43,23 +43,26 @@ def merge2TeamTables(personalTables, teamWorkTables,tableNum):
         i = i + 1
 def merge2AllTeamTables(personalTables, teamWorkTables,tableNum):
     personalWorkTable = personalTables[tableNum]
+    k=0
     for row in personalWorkTable.rows:
-        selectedCells = row.cells
-        i = 0
-        cells = teamWorkTables[tableNum].add_row().cells
-        for cell in selectedCells:
-            text=cell.text
-            array=text.split('\n')
-            j=0
-            combinedText=''
-            for words in array:
-                flag1='无'.endswith(words)
-                flag2=len(words)==0
-                flag3='-' in words
-                if (not flag1) and (not flag2) and (not flag3):
-                    j=j+1
-                    combinedText=combinedText+str(j)+'.'+words+'\n'
-                else:
-                    combinedText=combinedText+words+'\n'
-            cells[i].text = combinedText
-            i = i + 1
+        selectedCells = row.cells        
+        if k>0 and len(selectedCells[0].text)>0:
+            i = 0
+            cells = teamWorkTables[tableNum].add_row().cells
+            for cell in selectedCells:
+                text=cell.text                   
+                array=text.split('\n')
+                j=0
+                combinedText=''
+                for words in array:
+                    flag1='无'.endswith(words)
+                    flag2=len(words)==0
+                    flag3='-' in words
+                    if (not flag1) and (not flag2) and (not flag3):
+                        j=j+1
+                        combinedText=combinedText+str(j)+'.'+words+'\n'
+                    else:
+                        combinedText=combinedText+words+'\n'
+                cells[i].text = combinedText
+                i = i + 1
+        k=k+1

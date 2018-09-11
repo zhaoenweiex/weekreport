@@ -18,21 +18,13 @@ def generateHistoryReport():
 
 if __name__ == '__main__':
     emailaddress,password,pop3_server,smtp_server,teamNumber,orgName,toAddress=loadConfig()
-    # 输入邮件地址, 口令和POP3服务器地址:
-    # emailaddress = '18622939753@163.com'
-    # # 注意使用开通POP，SMTP等的授权码
-    # password = '860124Ww'
-    # pop3_server = 'pop.163.com'
-    # smtp_server='smtp.163.com'
-    # teamNumber=7
-    # orgName="软件二组"
     timeStampe=str(datetime.datetime.now().month)+str(datetime.datetime.now().day)
     tempReportDirName='reports_'+timeStampe  
     tempResultDirName='result_'+timeStampe    
     createTempDir(tempReportDirName)
     createTempDir(tempResultDirName)
     # 下载团队成员周报
-    downloadReports(emailaddress,password,pop3_server,teamNumber,7,-7,'周报',tempReportDirName)
+    downloadReports(emailaddress,password,pop3_server,teamNumber,14,-14,'周报',tempReportDirName)
     # 扫描文件夹
     reportInfoList=scanDir(tempReportDirName)
     # 合并到word

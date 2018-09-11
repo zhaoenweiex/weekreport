@@ -24,14 +24,6 @@ def getRelativeNameList(dirName,fullNameList):
     return out
 if __name__ == '__main__':
     emailaddress,password,pop3_server,smtp_server,teamNumber,orgName,toAddress=loadConfig()
-    # 输入邮件地址, 口令和POP3服务器地址:
-    # emailaddress = '18622939753@163.com'
-    # # 注意使用开通POP，SMTP等的授权码
-    # password = '860124Ww'
-    # pop3_server = 'pop.163.com'
-    # smtp_server='smtp.163.com'
-    # teamNumber=7
-    # orgName="软件二组"
     timeStampe=str(datetime.datetime.now().month)+str(datetime.datetime.now().day)
     tempResultDirName='result_'+timeStampe    
     createTempDir(tempResultDirName)
