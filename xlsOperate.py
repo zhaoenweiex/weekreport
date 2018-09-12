@@ -33,10 +33,12 @@ def mergeAllinfo2HistoryXlsx(resultDir, orgName, weekDict, historyFilePath):
 
 
 def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
+    output_sheet_array=[]
     historyFilePath = histroryFileName
     workbook = xlrd.open_workbook(historyFilePath)
     # 用索引取第一个sheet
     table = workbook.sheet_by_index(0)
+   
     # 获取全部数据
     nrows = table.nrows  # 行数
     ncols = table.ncols  # 列数
@@ -55,10 +57,24 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
         value = doneDict.get(name)
         newRow.append(value)
     row_list.append(newRow)
+    output_sheet_array.append({'name':'汇总','datas': row_list})
+    sheets=workbook.get_sheets
+    if len(sheets)>1:
+        count=0
+        for sheetOfBook in sheets:
+            if count>0:
+                nrows_sheet = sheetOfBook.nrows  # 行数
+                ncols_sheet = sheetOfBook.ncols  # 列数
+                row_list_sheet = []
+                for rownum in range(nrows):
+                    row = sheetOfBook.row_values(rownum)
+                    if row:
+                        row_list_sheet.append(row)
+                sheetData={'name':sheetOfBook.name,'datas':row_list_sheet}
+                output_sheet_array.append(sheetData)
+            count=count+1
     mergeName = resultDir+'/'+orgName+timeStr+'~汇总.xls'
-    # FIXME:第二页信息丢失
-    write_to_excel(mergeName,[{'name':'汇总','datas': row_list}])
-
+    write_to_excel(mergeName,output_sheet_array)
     return mergeName
 
 
