@@ -58,7 +58,7 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
         newRow.append(value)
     row_list.append(newRow)
     output_sheet_array.append({'name':'汇总','datas': row_list})
-    sheets=workbook.get_sheets
+    sheets=workbook.sheets()
     if len(sheets)>1:
         count=0
         for sheetOfBook in sheets:
@@ -73,7 +73,7 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
                 sheetData={'name':sheetOfBook.name,'datas':row_list_sheet}
                 output_sheet_array.append(sheetData)
             count=count+1
-    mergeName = resultDir+'/'+orgName+timeStr+'~汇总.xls'
+    mergeName = resultDir+'/'+orgName+timeStr+'_汇总.xls'
     write_to_excel(mergeName,output_sheet_array)
     return mergeName
 

@@ -31,7 +31,7 @@ def createTeamReport(resultDir,orgName):
     templateFile = docx.Document(templateName)   
     monthStr=str(datetime.datetime.now().month)
     timeStr= time.strftime("%Y%m%d", time.localtime())   
-    teamReportName=resultDir+'/'+orgName+timeStr+"~汇总.docx"
+    teamReportName=resultDir+'/'+orgName+timeStr+"_汇总.docx"
     templateFile.save(teamReportName)
     # 将周报模板复制到临时目录下
     return teamReportName

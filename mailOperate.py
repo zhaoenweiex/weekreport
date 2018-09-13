@@ -141,7 +141,9 @@ def downloadReports(emailaddress,password,pop3_server,teamNumber,upTimeBounding,
         base_save_path = '/media/markliu/Entertainment/email_attachments/'
         msg_headers = get_email_headers(msg)
         dateStr=msg_headers['date']
-        if dateStr.find("(GMT")==-1:                
+        if dateStr.find('(')!=-1:
+            dateStr=dateStr[0:dateStr.find('(')]
+        if True:                
           receiveDate = dateutil.parser.parse(dateStr)
           now = datetime.datetime.now()
           this_week_start = now - timedelta(days=now.weekday())
