@@ -27,14 +27,17 @@ def merge2TeamTables(personalTables, teamWorkTables,tableNum):
     cells = teamWorkTables[tableNum].add_row().cells
     for cell in selectedCells:
         text=cell.text
+        if i==0:
+            i=i+1
+            cells[i].text =text
+            continue
         array=text.split('\n')
         j=0
         combinedText=''
         for words in array:
             flag1='无'.endswith(words)
             flag2=len(words)==0
-            flag3='-' in words
-            if (not flag1) and (not flag2) and (not flag3):
+            if (not flag1) and (not flag2):
                 j=j+1
                 combinedText=combinedText+str(j)+'.'+words+'\n'
             else:

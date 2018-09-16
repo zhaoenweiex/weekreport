@@ -14,7 +14,7 @@ if __name__ == '__main__':
     createTempDir(tempReportDirName)
     createTempDir(tempResultDirName)
     # 下载团队成员周报
-    downloadReports(emailaddress,password,pop3_server,teamNumber,14,-14,'周报',tempReportDirName)
+    downloadReports(emailaddress,password,pop3_server,teamNumber,7,-7,'周报',tempReportDirName)
     # 扫描文件夹
     reportInfoList=scanDir(tempReportDirName)
     # 合并到word
