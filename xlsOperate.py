@@ -55,7 +55,8 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
     newRow.append(timeStr)
     for name in memberNames:
         value = doneDict.get(name)
-        newRow.append(value)
+        if value!=None:
+            newRow.append(value)
     row_list.append(newRow)
     output_sheet_array.append({'name':'汇总','datas': row_list})
     sheets=workbook.sheets()
@@ -66,7 +67,7 @@ def merge2HistoryXlsx(resultDir, orgName, doneDict, histroryFileName):
                 nrows_sheet = sheetOfBook.nrows  # 行数
                 ncols_sheet = sheetOfBook.ncols  # 列数
                 row_list_sheet = []
-                for rownum in range(nrows):
+                for rownum in range(sheetOfBook.nrows):
                     row = sheetOfBook.row_values(rownum)
                     if row:
                         row_list_sheet.append(row)

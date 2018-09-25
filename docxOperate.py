@@ -28,8 +28,8 @@ def merge2TeamTables(personalTables, teamWorkTables,tableNum):
     for cell in selectedCells:
         text=cell.text
         if i==0:
-            i=i+1
             cells[i].text =text
+            i=i+1
             continue
         array=text.split('\n')
         j=0

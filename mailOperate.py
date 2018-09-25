@@ -174,7 +174,11 @@ def sendResults(fileNameArray,fromaddr,toaddr,psw,serverAddress,topic):
     for file in fileNameArray:
         fileApart =  MIMEBase('application', 'octet-stream')
         fileApart.set_payload(open(file,'rb').read())
-        fileApart.add_header('Content-Disposition', 'attachment', filename=Header(file, 'utf-8').encode())
+        relativeFileName=file
+        if file.find('/'):
+            names=relativeFileName.split('/')
+            relativeFileName=names[len(names)-1]
+        fileApart.add_header('Content-Disposition', 'attachment', filename=Header(relativeFileName, 'utf-8').encode())
         encode_base64(fileApart)
         m.attach(fileApart)   
     m['Subject'] = topic
